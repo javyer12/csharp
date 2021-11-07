@@ -1,5 +1,7 @@
 ﻿using System;
 using CoreSchool.Entities;
+using System.Collections.Generic;
+using static System.Console; //me permite usar todas las funciones de la clase Console obviando el uso de System.Console.
 
 namespace etapa1
 {
@@ -11,33 +13,65 @@ namespace etapa1
       city: "New York",
       country: "United States"
       );
-      var courseArray = new Course[3];
 
-      courseArray[0] = new Course()
+      //colecciones
+      //generico: se debe utilizar para un tipo de dato especifico
+      //addRange, podemos agregar una coleccion a otra coleccion
+      school.Courses = new List<Course>()
       {
-        Name = "1"
+        new Course() { Name = "101", Journey = TypeJourney.MorningShift},
+        new Course() { Name = "102", Journey = TypeJourney.MorningShift},
+        new Course() { Name = "103", Journey = TypeJourney.MorningShift},
       };
 
+      school.Courses.Add( new Course { Name = "104", Journey = TypeJourney.WeenkendDay});
 
-      var course2 = new Course()
+      var anotherOne =  new List<Course>()
       {
-        Name = "2"
-      };
-      courseArray[1] = course2;
-
-      courseArray[2] = new Course
-      {
-        Name = "3"
+        new Course() { Name = "201", Journey = TypeJourney.MorningShift},
+        new Course() { Name = "202", Journey = TypeJourney.MorningShift},
+        new Course() { Name = "203", Journey = TypeJourney.MorningShift},
       };
 
-      Console.WriteLine(school);
-      System.Console.WriteLine("=========");
-      printCoursesWhile(courseArray);
-      System.Console.WriteLine("=========");
-    //   printCoursesDoWhile(courseArray);
-      printCoursesFor(courseArray);
-      System.Console.WriteLine("=========");
-      printCoursesForEach(courseArray);
+      //borrar la coleccion 
+      anotherOne.Clear();
+
+      //removeAll borrar todos los elementos que cumplan con la condicion
+      school.Courses.RemoveAll(course => course.Name.Contains("104"));
+      //school.Courses.Remove(course_name)
+
+      school.Courses.AddRange(anotherOne);
+
+      //arrays
+      // school.Courses = new Course[]{
+      //   new Course() { Name = "101" },
+      //   new Course() { Name = "102" },
+      //   new Course() { Name = "103"},
+      // };
+
+      // school.Courses = null;
+
+      printSchoolCourses(school);
+    }
+    private static void printSchoolCourses(School school)
+    {
+      WriteLine("========");
+      WriteLine("School Courses =>");
+      WriteLine("        ");
+
+
+//corto circuito de expresion de validaciones: si la primera validacion no es verdadera no preguntara para segunda, si la escuela es diferente entonces si procede a verificar si los cursos son diferentes
+      if ( school?.Courses != null)
+      {
+        foreach (var course in school.Courses)
+        {
+          WriteLine($"Name: {course.Name}, Id: {course.UniqueId}");
+        }
+      }
+      else
+      {
+        WriteLine("The school has no courses");
+      }
 
     }
 

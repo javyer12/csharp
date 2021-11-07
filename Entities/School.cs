@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CoreSchool.Entities
 {
         class School 
@@ -20,6 +22,8 @@ namespace CoreSchool.Entities
                 private int myVar;
 
                 public  TypeSchools TypeSchools {get;set;}
+
+                public List<Course> Courses { get; set; }
 
                 public string env = System.Environment.NewLine;
 // igualacion por tupla, para construir el metodo (entre parentesis)
