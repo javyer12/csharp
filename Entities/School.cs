@@ -1,10 +1,12 @@
 using System.Collections.Generic;
-
+using System;
 namespace CoreSchool.Entities
 {
-        class School 
+        public  class School 
         {
                 //encapsulamiento: ponerle logica a los elementos para que en el futuro no se tenga que modificar en cada espacio que viva el codigo
+                public string UniqueId { get; private set; }= Guid.NewGuid().ToString();
+
                 string name;
 
                  //esta es la propiedad de encapsulamiento
@@ -18,8 +20,6 @@ namespace CoreSchool.Entities
 
                 public string Country { get; set; }
                 public string City { get; set; }
-
-                private int myVar;
 
                 public  TypeSchools TypeSchools {get;set;}
 

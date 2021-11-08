@@ -1,63 +1,69 @@
 ﻿using System;
 using CoreSchool.Entities;
 using System.Collections.Generic;
+using CoreSchool.Util;
 using static System.Console; //me permite usar todas las funciones de la clase Console obviando el uso de System.Console.
 
-namespace etapa1
+namespace CoreSchool
 {
   class Program
   {
     static void Main(string[] args)
     {
-      var school = new School("Soft School", 2001, TypeSchools.Primary,
-      city: "New York",
-      country: "United States"
-      );
+                  //APRENDIZAJE DE C#
+                  // var school = new School("Soft School", 2001, TypeSchools.Primary,
+                  // city: "New York",
+                  // country: "United States"
+                  // );
 
-      //colecciones
-      //generico: se debe utilizar para un tipo de dato especifico
-      //addRange, podemos agregar una coleccion a otra coleccion
-      school.Courses = new List<Course>()
-      {
-        new Course() { Name = "101", Journey = TypeJourney.MorningShift},
-        new Course() { Name = "102", Journey = TypeJourney.MorningShift},
-        new Course() { Name = "103", Journey = TypeJourney.MorningShift},
-      };
+                  // //colecciones
+                  // //generico: se debe utilizar para un tipo de dato especifico
+                  // //addRange, podemos agregar una coleccion a otra coleccion
+                  // school.Courses = new List<Course>()
+                  // {
+                  //   new Course() { Name = "101", Journey = TypeJourney.MorningShift},
+                  //   new Course() { Name = "102", Journey = TypeJourney.MorningShift},
+                  //   new Course() { Name = "103", Journey = TypeJourney.MorningShift},
+                  // };
 
-      school.Courses.Add( new Course { Name = "104", Journey = TypeJourney.WeenkendDay});
+                  // school.Courses.Add( new Course { Name = "104", Journey = TypeJourney.WeenkendDay});
 
-      var anotherOne =  new List<Course>()
-      {
-        new Course() { Name = "201", Journey = TypeJourney.MorningShift},
-        new Course() { Name = "202", Journey = TypeJourney.MorningShift},
-        new Course() { Name = "203", Journey = TypeJourney.MorningShift},
-      };
+                  // var anotherOne =  new List<Course>()
+                  // {
+                  //   new Course() { Name = "201", Journey = TypeJourney.MorningShift},
+                  //   new Course() { Name = "202", Journey = TypeJourney.MorningShift},
+                  //   new Course() { Name = "203", Journey = TypeJourney.MorningShift},
+                  // };
 
-      //borrar la coleccion 
-      anotherOne.Clear();
+                  //borrar la coleccion 
+                  // anotherOne.Clear();
 
-      //removeAll borrar todos los elementos que cumplan con la condicion
-      school.Courses.RemoveAll(course => course.Name.Contains("104"));
-      //school.Courses.Remove(course_name)
+                  //removeAll borrar todos los elementos que cumplan con la condicion
+                  // school.Courses.RemoveAll(course => course.Name.Contains("104"));
+                  //school.Courses.Remove(course_name)
 
-      school.Courses.AddRange(anotherOne);
+                  // school.Courses.AddRange(anotherOne);
 
-      //arrays
-      // school.Courses = new Course[]{
-      //   new Course() { Name = "101" },
-      //   new Course() { Name = "102" },
-      //   new Course() { Name = "103"},
-      // };
+                  //arrays
+                  // school.Courses = new Course[]{
+                  //   new Course() { Name = "101" },
+                  //   new Course() { Name = "102" },
+                  //   new Course() { Name = "103"},
+                  // };
 
-      // school.Courses = null;
+                  // school.Courses = null;
+      var engine = new SchoolEngine();
+      engine.Initialize();
+      Printer.WriteTitle("WELCOME TO SCHOOL");
+      Printer.Beep(1000, count: 10);
 
-      printSchoolCourses(school);
+      
+      printSchoolCourses(engine.School);
     }
+
     private static void printSchoolCourses(School school)
     {
-      WriteLine("========");
-      WriteLine("School Courses =>");
-      WriteLine("        ");
+      Printer.WriteTitle("School Courses=>");
 
 
 //corto circuito de expresion de validaciones: si la primera validacion no es verdadera no preguntara para segunda, si la escuela es diferente entonces si procede a verificar si los cursos son diferentes
