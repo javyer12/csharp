@@ -5,7 +5,7 @@ namespace CoreSchool.Entities
 {
   public class Course
   {
-    public string UniqueId { get; private set; }
+    public string UniqueId { get; set; }
 
     public string Name { get; set; }
     public TypeJourney Journey { get; set; }
