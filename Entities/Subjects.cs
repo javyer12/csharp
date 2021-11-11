@@ -8,6 +8,8 @@ namespace CoreSchool.Entities
 
         public string Name { get; set; }
 
+        public double  Evaluation { get; set; }
+
          public Subject() =>  UniqueId = Guid.NewGuid().ToString();
 
     }

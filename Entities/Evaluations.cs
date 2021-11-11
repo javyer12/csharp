@@ -4,11 +4,13 @@ namespace CoreSchool.Entities
 {
     public class Evaluation
     {
-        public string UniqueId { get; set; }
+        public string UniqueId { get; private set; }
 
         public string Name { get; set; }
 
         public Student Student { get; set; }
+
+        public double Evaluations { get; set; }
 
         public Subject Subject { get; set;}
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreSchool.Entities;
+using static System.Console;
 
 namespace CoreSchool
 {
@@ -22,37 +23,55 @@ namespace CoreSchool
             );
 
             LoadCourses();
-            // LoadSubjects();
+            LoadSubject();
 
-            foreach (var course in School.Courses)
-            {
-              course.Students.AddRange(LoadStudents());
-            }
-
-            // LoadEvaluations();
+            LoadEvaluations();
         }
 
-        private void LoadSubjects()
+        private void LoadSubject()
         {
             foreach (var course in School.Courses)
             {
-                List<Subject> subjectList = new List<Subject>()
-              {
+                var subjectList = new List<Subject>(){
+
                 new Subject{Name = "Math "},
                 new Subject{Name = "Science "},
                 new Subject{Name = "Spanish"},
                 new Subject{Name = "Biology"}
               };
-              course.Subjects.AddRange(subjectList);
+                course.Subjects = subjectList;
             }
         }
 
-        // private void LoadEvaluations()
-        // {
-        //   throw new NotImplementedException();
-        // }
 
-        private IEnumerable<Student> LoadStudents()
+        private void LoadEvaluations()
+        {
+            foreach (var course in School.Courses)
+            {
+                foreach (var subject in course.Subjects)
+                {
+                    foreach (var student in course.Students)
+                    {
+                        List<Evaluation> evaluations = new List<Evaluation>();
+                        var rnd = new Random(System.Environment.TickCount);
+                        for (int i = 1; i < 10; i++)
+                        {
+                            var ev = new Evaluation()
+                            {
+                                Subject = subject,
+                                Name = $"{subject.Name} EV#{i + 1}",
+                                Note = (float)(5 * rnd.NextDouble()),
+                                Student = student
+                            };
+                            evaluations.Add(ev);
+                        }
+                    }
+                }
+            }
+        }
+       
+
+        private List<Student> CreateListStudents(int amount)
         {
             string[] name1 = { "Alba", "Felipa", "Eusebio", "Farid", "Donald", "Alvaro", "Nicolás" };
             string[] lastName1 = { "Ruiz", "Sarmiento", "Uribe", "Maduro", "Trump", "Toledo", "Herrera" };
@@ -64,20 +83,26 @@ namespace CoreSchool
                               from a1 in lastName1
                               select new Student { Name = $"{n1} {n2} {a1}" };
 
-            return studentList;
+            return studentList.OrderBy((a1) => a1.UniqueId).ToList();
         }
 
         private void LoadCourses()
         {
             School.Courses = new List<Course>()
-        {
-              new Course() { Name = "101", Journey = TypeJourney.MorningShift},
-              new Course() { Name = "102", Journey = TypeJourney.MorningShift},
-              new Course() { Name = "103", Journey = TypeJourney.MorningShift},
-              new Course() { Name = "201", Journey = TypeJourney.MorningShift},
-              new Course() { Name = "202", Journey = TypeJourney.MorningShift}
+            {
+                new Course() { Name = "101", Journey = TypeJourney.MorningShift},
+                new Course() { Name = "102", Journey = TypeJourney.MorningShift},
+                new Course() { Name = "103", Journey = TypeJourney.MorningShift},
+                new Course() { Name = "201", Journey = TypeJourney.MorningShift},
+                new Course() { Name = "202", Journey = TypeJourney.MorningShift}
 
-        };
+            };
+            Random rnd = new Random();
+            foreach (var c in School.Courses)
+            {
+                int amountRandom = rnd.Next(5, 20);
+                c.Students = CreateListStudents(amountRandom);
+            }
         }
     }
 
