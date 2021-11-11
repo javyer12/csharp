@@ -50,16 +50,16 @@ namespace CoreSchool
             {
                 foreach (var subject in course.Subjects)
                 {
+                    List<Evaluation> evaluations = new List<Evaluation>();
                     foreach (var student in course.Students)
                     {
-                        List<Evaluation> evaluations = new List<Evaluation>();
                         var rnd = new Random(System.Environment.TickCount);
-                        for (int i = 1; i < 10; i++)
+                        for (int i = 0; i < 10; i++)
                         {
                             var ev = new Evaluation()
                             {
                                 Subject = subject,
-                                Name = $"{subject.Name} EV#{i + 1}",
+                                Name = $"{subject.Name} EV# {i + 1}",
                                 Note = (float)(5 * rnd.NextDouble()),
                                 Student = student
                             };
