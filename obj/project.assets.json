@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\cshart\\etapa1\\etapa1.csproj",
+      "projectUniqueName": "C:\\netcore\\csharp\\etapa1.csproj",
       "projectName": "etapa1",
-      "projectPath": "C:\\cshart\\etapa1\\etapa1.csproj",
+      "projectPath": "C:\\netcore\\csharp\\etapa1.csproj",
       "packagesPath": "C:\\Users\\javye\\.nuget\\packages\\",
-      "outputPath": "C:\\cshart\\etapa1\\obj\\",
+      "outputPath": "C:\\netcore\\csharp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\javye\\AppData\\Roaming\\NuGet\\NuGet.Config"

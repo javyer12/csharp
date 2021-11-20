@@ -2,7 +2,8 @@
 using CoreSchool.Entities;
 using System.Collections.Generic;
 using CoreSchool.Util;
-using static System.Console; //me permite usar todas las funciones de la clase Console obviando el uso de System.Console.
+using static System.Console;
+ //me permite usar todas las funciones de la clase Console obviando el uso de System.Console.
 
 namespace CoreSchool
 {
@@ -55,10 +56,28 @@ namespace CoreSchool
       var engine = new SchoolEngine();
       engine.Initialize();
       Printer.WriteTitle("WELCOME TO SCHOOL");
-      Printer.Beep(1000, count: 10);
+      // Printer.Beep(1000, count: 10);
 
       
       printSchoolCourses(engine.School);
+
+      // var obj = new ObjectSchoolBase();
+      Printer.DrawLine(20);
+      Printer.WriteTitle("pruebas de polimorfismo");
+
+    //polimorfismo
+      var studentTest = new Student{Name = "Dibi tur"};
+      ObjectSchoolBase ob = studentTest;
+
+      Printer.WriteTitle("Student");
+      WriteLine($"Student: {studentTest.Name}");
+      WriteLine($"Student: {studentTest.UniqueId}");
+      WriteLine($"Student: {studentTest.GetType()}");
+
+      Printer.WriteTitle("Objeto escuela");
+      WriteLine($"Student: {ob.Name}");
+       WriteLine($"Student: {ob.UniqueId}");
+      WriteLine($"Student: {ob.GetType()}");
     }
 
     private static void printSchoolCourses(School school)

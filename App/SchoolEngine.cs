@@ -50,11 +50,10 @@ namespace CoreSchool
             {
                 foreach (var subject in course.Subjects)
                 {
-                    List<Evaluation> evaluations = new List<Evaluation>();
                     foreach (var student in course.Students)
                     {
                         var rnd = new Random(System.Environment.TickCount);
-                        for (int i = 0; i < 10; i++)
+                        for (int i = 0; i < 5; i++)
                         {
                             var ev = new Evaluation()
                             {
@@ -63,7 +62,7 @@ namespace CoreSchool
                                 Note = (float)(5 * rnd.NextDouble()),
                                 Student = student
                             };
-                            evaluations.Add(ev);
+                            student.Evaluations.Add(ev);
                         }
                     }
                 }

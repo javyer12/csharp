@@ -1,20 +1,12 @@
 using System.Collections.Generic;
 using System;
+
 namespace CoreSchool.Entities
 {
-        public  class School 
+        public  class School: ObjectSchoolBase 
         {
                 //encapsulamiento: ponerle logica a los elementos para que en el futuro no se tenga que modificar en cada espacio que viva el codigo
-                public string UniqueId { get; private set; }= Guid.NewGuid().ToString();
-
-                string name;
-
-                 //esta es la propiedad de encapsulamiento
-                 public string Name
-                {
-                        get { return "Copy: " +  name; }
-                        set { name = value.ToUpper(); }
-                }
+               
 
                 public int YearCreated { get;set; }
 
