@@ -24,10 +24,73 @@ namespace CoreSchool
 
             LoadCourses();
             LoadSubject();
-
             LoadEvaluations();
         }
 
+        public List<ObjectSchoolBase> GetObjectSchool(
+            out int countEva,
+            out int countCourses,
+            out int countSubject,
+            out int countStudent,
+            bool getEvaluations = true,
+            bool  getStudent = true, 
+            bool getSubject = true,
+            bool getCourses = true
+            )
+        {
+            countEva =  countSubject = countStudent = 0;
+
+            var listobj = new List<ObjectSchoolBase>();
+            listobj.Add(School);
+
+                if (getCourses)
+                    listobj.AddRange(School.Courses);
+
+                countCourses = School.Courses.Count;
+
+                foreach (var course in School.Courses)
+                {
+                    countSubject += course.Subjects.Count;
+                    countStudent += course.Students.Count;
+                    
+                    if (getSubject)
+                         listobj.AddRange(course.Subjects);
+
+                    if (getStudent)
+                        listobj.AddRange(course.Students);
+
+                    if (getEvaluations)
+                    {
+                        foreach (var student in course.Students)
+                        {
+                            listobj.AddRange(course.Students);
+                            countEva += student.Evaluations.Count;
+                        }
+                    }
+                }
+            
+            return (listobj, countEva );
+        }
+          public List<ObjectSchoolBase> GetObjectSchool()
+        {
+            var listobj = new List<ObjectSchoolBase>();
+            listobj.Add(School);
+            listobj.AddRange(School.Courses);
+
+            foreach (var course in School.Courses)
+            {
+                listobj.AddRange(course.Subjects);
+                listobj.AddRange(course.Students);
+
+                foreach (var student in course.Students)
+                {
+                    listobj.AddRange(course.Students);
+                }
+            }
+            return listobj;
+        }
+
+#region  Metodos de carga    
         private void LoadSubject()
         {
             foreach (var course in School.Courses)
@@ -68,6 +131,7 @@ namespace CoreSchool
                 }
             }
         }
+
        
 
         private List<Student> CreateListStudents(int amount)
@@ -104,5 +168,5 @@ namespace CoreSchool
             }
         }
     }
-
+    #endregion
 }

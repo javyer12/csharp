@@ -2,7 +2,7 @@ using System;
 
 namespace CoreSchool.Entities
 {
-    public class ObjectSchoolBase
+    public abstract class ObjectSchoolBase
     {
         public string UniqueId { get; private  set;}
         public string Name { get; set; }
@@ -11,6 +11,10 @@ namespace CoreSchool.Entities
         {
             // Guid = Globally Unique Identifier, la funcion NEWID(), genera un unico valor cada vez que se genera
             UniqueId = Guid.NewGuid().ToString();
+        }
+        public override string ToString()
+        {
+            return $"{Name}, {UniqueId}";
         }
     }
 }

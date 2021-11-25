@@ -11,6 +11,9 @@ namespace CoreSchool.Entities
 
         public float Note { get; set; }
 
-
+        public override string ToString()
+        {
+            return $"{this.Note}, {this.Student}, {this.Subject}";
+        }
     }
 }

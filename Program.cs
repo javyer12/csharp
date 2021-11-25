@@ -3,7 +3,8 @@ using CoreSchool.Entities;
 using System.Collections.Generic;
 using CoreSchool.Util;
 using static System.Console;
- //me permite usar todas las funciones de la clase Console obviando el uso de System.Console.
+using System.Linq;
+//me permite usar todas las funciones de la clase Console obviando el uso de System.Console.
 
 namespace CoreSchool
 {
@@ -57,27 +58,32 @@ namespace CoreSchool
       engine.Initialize();
       Printer.WriteTitle("WELCOME TO SCHOOL");
       // Printer.Beep(1000, count: 10);
-
-      
       printSchoolCourses(engine.School);
+      var listObjects = engine.GetObjectSchool(true, false, false, false);
 
-      // var obj = new ObjectSchoolBase();
-      Printer.DrawLine(20);
-      Printer.WriteTitle("pruebas de polimorfismo");
+      // var ListPlace = from obj in listObjects
+      //                 where obj is IPlace
+      //                 select (IPlace)obj;
+      //en interfaces no es lo mismo que herencias, en herencia todo el comportamiento es heredado, la interfaz me dice que cosas debe cumplir, no le digo que debe de tener pero debe de garantizar que cumpla con eso.
+
+     // engine.School.CleanPlace();
+
+      // Printer.DrawLine(20);
+      // Printer.WriteTitle("pruebas de polimorfismo");
 
     //polimorfismo
-      var studentTest = new Student{Name = "Dibi tur"};
-      ObjectSchoolBase ob = studentTest;
+      // var studentTest = new Student{Name = "Dibi tur"};
+      // ObjectSchoolBase ob = studentTest;
 
-      Printer.WriteTitle("Student");
-      WriteLine($"Student: {studentTest.Name}");
-      WriteLine($"Student: {studentTest.UniqueId}");
-      WriteLine($"Student: {studentTest.GetType()}");
+      // Printer.WriteTitle("Student");
+      // WriteLine($"Student: {studentTest.Name}");
+      // WriteLine($"Student: {studentTest.UniqueId}");
+      // WriteLine($"Student: {studentTest.GetType()}");
 
-      Printer.WriteTitle("Objeto escuela");
-      WriteLine($"Student: {ob.Name}");
-       WriteLine($"Student: {ob.UniqueId}");
-      WriteLine($"Student: {ob.GetType()}");
+      // Printer.WriteTitle("Objeto escuela");
+      // WriteLine($"Student: {ob.Name}");
+      // WriteLine($"Student: {ob.UniqueId}");
+      // WriteLine($"Student: {ob.GetType()}");
     }
 
     private static void printSchoolCourses(School school)
