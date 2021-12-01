@@ -12,6 +12,8 @@ namespace CoreSchool
   {
     static void Main(string[] args)
     {
+      AppDomain.CurrentDomain.ProcessExit += EventAction;
+
                   //APRENDIZAJE DE C#
                   // var school = new School("Soft School", 2001, TypeSchools.Primary,
                   // city: "New York",
@@ -54,12 +56,30 @@ namespace CoreSchool
                   // };
 
                   // school.Courses = null;
+
+ 
       var engine = new SchoolEngine();
       engine.Initialize();
       Printer.WriteTitle("WELCOME TO SCHOOL");
       // Printer.Beep(1000, count: 10);
       printSchoolCourses(engine.School);
-      var listObjects = engine.GetObjectSchool(true, false, false, false);
+
+      Dictionary<int, string> dictionary = new Dictionary<int, string>();
+      dictionary.Add(1, "One");
+      dictionary.Add(2, "Two");
+      
+       foreach (var keyValPair in dictionary)
+      {
+        WriteLine($"Key: {keyValPair.Key}, Value: {keyValPair.Value}");
+      }
+
+      var dictem = engine.getObjectDic();
+      engine.PrintDic(dictem);
+      //cuando otros dev la consuman
+      //devolver un tipo de lista generico
+      //solo lectura si no queremos que la modifiquen clase
+
+      //IENumerable, los otros dev podran usar el metodo con la data que nececiten
 
       // var ListPlace = from obj in listObjects
       //                 where obj is IPlace
@@ -85,7 +105,14 @@ namespace CoreSchool
       // WriteLine($"Student: {ob.UniqueId}");
       // WriteLine($"Student: {ob.GetType()}");
     }
-
+     private static void EventAction(object sender, EventArgs e)
+    {
+      Printer.WriteTitle("SALIENDO DEL PROGRAMA");
+      Printer.Beep(3000,1000,3);
+      Printer.WriteTitle("Exit");
+    }
+    
+ 
     private static void printSchoolCourses(School school)
     {
       Printer.WriteTitle("School Courses=>");

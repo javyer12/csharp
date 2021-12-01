@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreSchool.Util;
 using CoreSchool.Entities;
 using static System.Console;
 
@@ -27,51 +28,206 @@ namespace CoreSchool
             LoadEvaluations();
         }
 
-        public List<ObjectSchoolBase> GetObjectSchool(
+        //int dummy = 0
+        // Si en nuestra función solamente necesitamos el primer parámetro de salida no podemos simplemente borrar los otros parámetros ya que esto va a lanzar un error, lo que debemos hacer es mandar una variable dummy en los siguientes parámetros de salida y listo.
+
+        public void PrintDic(Dictionary<DictionaryKey, IEnumerable<ObjectSchoolBase>> dic, bool PrintEval = true)
+        {
+            foreach (var obj in dic)
+            {
+                WriteLine(obj);
+                foreach (var val in obj.Value)
+                {
+                    switch (val)
+                    {
+                        case Subject subject:
+                            WriteLine($"Subjeccy:{subject.Name}");
+                            break;
+                        case Evaluation evaluation:
+                            if (PrintEval)
+                            {
+                                    Printer.WriteTitle(evaluation.Subject.Name);
+                                    WriteLine($"Subject: {evaluation.Subject.Name}" +
+                                    $"{Environment.NewLine}" +
+                                    $"Evaluation Name: {evaluation.Name}" +
+                                    $"{Environment.NewLine}" +
+                                    $"Note: {evaluation.Note}"
+                                     );
+                            }
+                            break;
+                        case Course course:
+                            WriteLine(course.Name);
+                            break;
+                        case Student student:
+                            WriteLine(student);
+                            break;
+                        case School school:
+                            WriteLine(school);
+                            break;
+                        default:
+                            WriteLine("Object empty");
+                            break;
+
+                    }
+
+
+
+
+
+                    // if ( val is Evaluation)
+                    // {
+                    //     if (PrintEval)
+                    //          WriteLine(val);
+                    // }
+                    // else if (val is School)
+                    // {
+                    //     WriteLine("School: " + val);
+                    // }
+                    // else if (val is Student)
+                    // {
+                    //     WriteLine("Student: " + val.Name);
+                    // }
+                    // else if (val is Course)
+                    // {
+                    //     WriteLine("Course: " + val);
+                    // }
+                    // else if (val is Subject)
+                    // {
+                    //     WriteLine("Subject: " + val);
+                    // }
+                    // else {
+                    //     WriteLine(val);
+                    // }
+                }
+            }
+        }
+
+        public Dictionary<DictionaryKey, IEnumerable<ObjectSchoolBase>> getObjectDic()
+        {
+
+            var dic = new Dictionary<DictionaryKey, IEnumerable<ObjectSchoolBase>>();
+            dic.Add(DictionaryKey.SCHOOL, new[] { School });
+            dic.Add(DictionaryKey.COURSE, School.Courses.Cast<ObjectSchoolBase>());
+
+            var listTemp = new List<Evaluation>();
+            var listTempSub = new List<Subject>();
+            var listTempStu = new List<Student>();
+
+            foreach (var cour in School.Courses)
+            {
+                listTempSub.AddRange(cour.Subjects); 
+                listTempStu.AddRange(cour.Students); 
+
+                foreach (var stud in cour.Students)
+                {
+                    listTemp.AddRange(stud.Evaluations);
+                }
+
+            }
+                dic.Add(DictionaryKey.EVALUATION, listTemp.Cast<ObjectSchoolBase>());
+                dic.Add(DictionaryKey.SUBJECT, listTemp.Cast<ObjectSchoolBase>());
+                dic.Add(DictionaryKey.STUDENT, listTemp.Cast<ObjectSchoolBase>());
+
+            return dic;
+        }
+        public IReadOnlyList<ObjectSchoolBase> GetObjectSchool(
+
+            bool getEvaluations = true,
+            bool getStudent = true,
+            bool getSubject = true,
+            bool getCourses = true
+            )
+        {
+            return GetObjectSchool(out int dummy, out dummy, out dummy, out dummy);
+        }
+
+
+        public IReadOnlyList<ObjectSchoolBase> GetObjectSchool(
+           out int countEva,
+           bool getEvaluations = true,
+           bool getStudent = true,
+           bool getSubject = true,
+           bool getCourses = true
+           )
+        {
+            return GetObjectSchool(out countEva, out int dummy, out dummy, out dummy);
+        }
+
+
+        public IReadOnlyList<ObjectSchoolBase> GetObjectSchool(
+         out int countEva,
+         out int countCourses,
+         bool getEvaluations = true,
+         bool getStudent = true,
+         bool getSubject = true,
+         bool getCourses = true
+         )
+        {
+            return GetObjectSchool(out countEva, out countCourses, out int dummy, out dummy);
+        }
+
+
+        public IReadOnlyList<ObjectSchoolBase> GetObjectSchool(
+         out int countEva,
+         out int countCourses,
+         out int countSubject,
+         bool getEvaluations = true,
+         bool getStudent = true,
+         bool getSubject = true,
+         bool getCourses = true
+         )
+        {
+            return GetObjectSchool(out countEva, out countCourses, out countSubject, out int dummy);
+        }
+
+        public IReadOnlyList<ObjectSchoolBase> GetObjectSchool(
             out int countEva,
             out int countCourses,
             out int countSubject,
             out int countStudent,
             bool getEvaluations = true,
-            bool  getStudent = true, 
+            bool getStudent = true,
             bool getSubject = true,
             bool getCourses = true
             )
         {
-            countEva =  countSubject = countStudent = 0;
+            countEva = countSubject = countStudent = 0;
 
             var listobj = new List<ObjectSchoolBase>();
             listobj.Add(School);
 
-                if (getCourses)
-                    listobj.AddRange(School.Courses);
+            if (getCourses)
+                listobj.AddRange(School.Courses);
 
-                countCourses = School.Courses.Count;
+            countCourses = School.Courses.Count;
 
-                foreach (var course in School.Courses)
+            foreach (var course in School.Courses)
+            {
+                countSubject += course.Subjects.Count;
+                countStudent += course.Students.Count;
+
+                if (getSubject)
+                    listobj.AddRange(course.Subjects);
+
+                if (getStudent)
+                    listobj.AddRange(course.Students);
+
+                if (getEvaluations)
                 {
-                    countSubject += course.Subjects.Count;
-                    countStudent += course.Students.Count;
-                    
-                    if (getSubject)
-                         listobj.AddRange(course.Subjects);
-
-                    if (getStudent)
-                        listobj.AddRange(course.Students);
-
-                    if (getEvaluations)
+                    foreach (var student in course.Students)
                     {
-                        foreach (var student in course.Students)
-                        {
-                            listobj.AddRange(course.Students);
-                            countEva += student.Evaluations.Count;
-                        }
+                        listobj.AddRange(course.Students);
+                        countEva += student.Evaluations.Count;
                     }
                 }
-            
-            return (listobj, countEva );
+            }
+
+            return listobj.AsReadOnly();
         }
-          public List<ObjectSchoolBase> GetObjectSchool()
+
+
+
+        public List<ObjectSchoolBase> GetObjectSchool()
         {
             var listobj = new List<ObjectSchoolBase>();
             listobj.Add(School);
@@ -90,7 +246,7 @@ namespace CoreSchool
             return listobj;
         }
 
-#region  Metodos de carga    
+        #region  Metodos de carga    
         private void LoadSubject()
         {
             foreach (var course in School.Courses)
@@ -109,20 +265,21 @@ namespace CoreSchool
 
         private void LoadEvaluations()
         {
+            var rnd = new Random();
             foreach (var course in School.Courses)
             {
                 foreach (var subject in course.Subjects)
                 {
                     foreach (var student in course.Students)
                     {
-                        var rnd = new Random(System.Environment.TickCount);
+                        
                         for (int i = 0; i < 5; i++)
                         {
                             var ev = new Evaluation()
                             {
                                 Subject = subject,
                                 Name = $"{subject.Name} EV# {i + 1}",
-                                Note = (float)(5 * rnd.NextDouble()),
+                                Note = (float)Math.Round(3 * rnd.NextDouble(), 2),
                                 Student = student
                             };
                             student.Evaluations.Add(ev);
@@ -132,7 +289,7 @@ namespace CoreSchool
             }
         }
 
-       
+
 
         private List<Student> CreateListStudents(int amount)
         {
