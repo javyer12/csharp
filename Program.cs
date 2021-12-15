@@ -65,6 +65,7 @@ namespace CoreSchool
             var reporter = new Reporter(engine.getObjectDic());
             var evaList = reporter.GetListEva();
             var listSub = reporter.GetListSubject();
+            var listEvaXSub = reporter.GetDicEvaXsub();
 
             //cuando otros dev la consuman
             //devolver un tipo de lista generico

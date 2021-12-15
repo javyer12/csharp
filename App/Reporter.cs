@@ -28,7 +28,12 @@ namespace CoreSchool.App
         }
         public IEnumerable<string> GetListSubject()
         {
-            var listEva =  GetListEva();
+            return GetListSubject(
+                 out var dummy);
+        }
+        public IEnumerable<string> GetListSubject(out IEnumerable<Evaluation> listEva)
+        {
+            listEva =  GetListEva();
             //va a guardar todo lo que traiga de Evaluation en ev
             return (from Evaluation ev in listEva
                     select ev.Subject.Name).Distinct();
@@ -37,9 +42,18 @@ namespace CoreSchool.App
         {
             var dictaRta= new Dictionary<string, IEnumerable<Evaluation>> ();
 
-            var listSub = GetListSubject();
+            var listSub = GetListSubject(out var listEva);
 
+            foreach (var sub in listSub)
+            {
+                var evalSubj = from eval in listEva
+                                where eval.Subject.Name == sub
+                                select eval;
+
+                dictaRta.Add(sub, evalSubj);
+            }
             return dictaRta;
+
         }
     }
 }
