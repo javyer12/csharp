@@ -4,5 +4,5 @@ public enum DictionaryKey
     SUBJECT,
    EVALUATION,
     STUDENT,
-   SCHOOL,
+    SCHOOL,
 }

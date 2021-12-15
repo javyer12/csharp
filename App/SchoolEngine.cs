@@ -5,7 +5,7 @@ using CoreSchool.Util;
 using CoreSchool.Entities;
 using static System.Console;
 
-namespace CoreSchool
+namespace CoreSchool.App
 {
     public class SchoolEngine
     {
@@ -46,13 +46,13 @@ namespace CoreSchool
                         case Evaluation evaluation:
                             if (PrintEval)
                             {
-                                    Printer.WriteTitle(evaluation.Subject.Name);
-                                    WriteLine($"Subject: {evaluation.Subject.Name}" +
-                                    $"{Environment.NewLine}" +
-                                    $"Evaluation Name: {evaluation.Name}" +
-                                    $"{Environment.NewLine}" +
-                                    $"Note: {evaluation.Note}"
-                                     );
+                                Printer.WriteTitle(evaluation.Subject.Name);
+                                WriteLine($"Subject: {evaluation.Subject.Name}" +
+                                $"{Environment.NewLine}" +
+                                $"Evaluation Name: {evaluation.Name}" +
+                                $"{Environment.NewLine}" +
+                                $"Note: {evaluation.Note}"
+                                 );
                             }
                             break;
                         case Course course:
@@ -106,7 +106,7 @@ namespace CoreSchool
         {
 
             var dic = new Dictionary<DictionaryKey, IEnumerable<ObjectSchoolBase>>();
-            dic.Add(DictionaryKey.SCHOOL, new[] { School });
+            // dic.Add(DictionaryKey.SCHOOL, new[] { School });
             dic.Add(DictionaryKey.COURSE, School.Courses.Cast<ObjectSchoolBase>());
 
             var listTemp = new List<Evaluation>();
@@ -115,8 +115,8 @@ namespace CoreSchool
 
             foreach (var cour in School.Courses)
             {
-                listTempSub.AddRange(cour.Subjects); 
-                listTempStu.AddRange(cour.Students); 
+                listTempSub.AddRange(cour.Subjects);
+                listTempStu.AddRange(cour.Students);
 
                 foreach (var stud in cour.Students)
                 {
@@ -124,9 +124,9 @@ namespace CoreSchool
                 }
 
             }
-                dic.Add(DictionaryKey.EVALUATION, listTemp.Cast<ObjectSchoolBase>());
-                dic.Add(DictionaryKey.SUBJECT, listTemp.Cast<ObjectSchoolBase>());
-                dic.Add(DictionaryKey.STUDENT, listTemp.Cast<ObjectSchoolBase>());
+            dic.Add(DictionaryKey.EVALUATION, listTemp.Cast<ObjectSchoolBase>());
+            dic.Add(DictionaryKey.SUBJECT, listTemp.Cast<ObjectSchoolBase>());
+            dic.Add(DictionaryKey.STUDENT, listTemp.Cast<ObjectSchoolBase>());
 
             return dic;
         }
@@ -272,7 +272,7 @@ namespace CoreSchool
                 {
                     foreach (var student in course.Students)
                     {
-                        
+
                         for (int i = 0; i < 5; i++)
                         {
                             var ev = new Evaluation()
