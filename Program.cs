@@ -66,6 +66,15 @@ namespace CoreSchool
             var evaList = reporter.GetListEva();
             var listSub = reporter.GetListSubject();
             var listEvaXSub = reporter.GetDicEvaXsub();
+            var listAveXSub = reporter.GetAverage();
+       
+
+            Printer.WriteTitle("Evaluations by Console");
+            var newEval = new Evaluation();
+            string name;
+            float note;    
+
+            WriteLine("Enter the name of the student: ");
 
             //cuando otros dev la consuman
             //devolver un tipo de lista generico
