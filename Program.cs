@@ -71,10 +71,64 @@ namespace CoreSchool
 
             Printer.WriteTitle("Evaluations by Console");
             var newEval = new Evaluation();
-            string name;
-            float note;    
+            string name, stringnote;
 
-            WriteLine("Enter the name of the student: ");
+            //NAME
+            WriteLine("Enter the name of the Evaluation: ");
+            Printer.PressEnter();
+            name = Console.ReadLine();
+
+            if(string.IsNullOrWhiteSpace(name))
+            {
+                Printer.WriteTitle("The name can not be empty");
+                WriteLine("Closing App");
+            }
+            else
+            {
+                newEval.Name = name.ToLower();
+                WriteLine("Name was set successessfully");
+            }
+            //NOTE
+            WriteLine("Enter the note of the Evaluation: ");
+            Printer.PressEnter();
+            stringnote = Console.ReadLine();
+
+            if(string.IsNullOrWhiteSpace(stringnote))
+            {
+                Printer.WriteTitle("Note can not be empty");
+                WriteLine("Closing App");
+            }
+            else
+            {
+                try{
+                    newEval.Note = float.Parse(stringnote);
+                    if (newEval.Note < 0 || newEval.Note > 5)
+                    {
+                        throw new ArgumentOutOfRangeException("The Note must be a number between 0 and 5");
+                    }
+                      WriteLine("Note was set successessfully");
+                }
+                catch (ArgumentOutOfRangeException arge){
+                    Printer.WriteTitle(arge.Message);
+                    WriteLine("Closing App");
+                }
+                
+                catch(Exception)
+                {
+                    Printer.WriteTitle("The note must be a number");
+                    WriteLine("Closing App");
+                }
+                finally{
+                    Printer.WriteTitle("Finally");
+                    Printer.Beep(2200, 200, 2);
+                    Printer.Beep(2500, 100, 3);
+                    Printer.Beep(2200, 300, 3);
+                    Printer.Beep(2000, 300, 1);
+                    Printer.Beep(3200, 1000, 1);
+                }
+            }
+
+        
 
             //cuando otros dev la consuman
             //devolver un tipo de lista generico

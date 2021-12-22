@@ -8,6 +8,11 @@ namespace CoreSchool.Util
             {
                  WriteLine("".PadLeft(len,'-'));
             }
+
+            public static void  PressEnter()
+            {
+                 WriteLine("Press Enter to continue");
+            }
              public static void  WriteTitle(string title)
             {
                   var leng = title.Length + 4;
