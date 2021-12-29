@@ -67,7 +67,7 @@ namespace CoreSchool
             var listSub = reporter.GetListSubject();
             var listEvaXSub = reporter.GetDicEvaXsub();
             var listAveXSub = reporter.GetAverage();
-       
+
 
             Printer.WriteTitle("Evaluations by Console");
             var newEval = new Evaluation();
@@ -78,7 +78,7 @@ namespace CoreSchool
             Printer.PressEnter();
             name = Console.ReadLine();
 
-            if(string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 Printer.WriteTitle("The name can not be empty");
                 WriteLine("Closing App");
@@ -93,42 +93,43 @@ namespace CoreSchool
             Printer.PressEnter();
             stringnote = Console.ReadLine();
 
-            if(string.IsNullOrWhiteSpace(stringnote))
+            if (string.IsNullOrWhiteSpace(stringnote))
             {
                 Printer.WriteTitle("Note can not be empty");
                 WriteLine("Closing App");
             }
             else
             {
-                try{
+                try
+                {
                     newEval.Note = float.Parse(stringnote);
                     if (newEval.Note < 0 || newEval.Note > 5)
                     {
                         throw new ArgumentOutOfRangeException("The Note must be a number between 0 and 5");
                     }
-                      WriteLine("Note was set successessfully");
+                    WriteLine("Note was set successessfully");
                 }
-                catch (ArgumentOutOfRangeException arge){
+                catch (ArgumentOutOfRangeException arge)
+                {
                     Printer.WriteTitle(arge.Message);
                     WriteLine("Closing App");
                 }
-                
-                catch(Exception)
+
+                catch (Exception)
                 {
                     Printer.WriteTitle("The note must be a number");
                     WriteLine("Closing App");
                 }
-                finally{
+                finally
+                {
                     Printer.WriteTitle("Finally");
-                    Printer.Beep(2200, 200, 2);
-                    Printer.Beep(2500, 100, 3);
-                    Printer.Beep(2200, 300, 3);
-                    Printer.Beep(2000, 300, 1);
-                    Printer.Beep(3200, 1000, 1);
+                    Printer.Beep(1000, 200, 1);
+
+
                 }
             }
 
-        
+
 
             //cuando otros dev la consuman
             //devolver un tipo de lista generico
@@ -163,7 +164,15 @@ namespace CoreSchool
         private static void EventAction(object sender, EventArgs e)
         {
             Printer.WriteTitle("SALIENDO DEL PROGRAMA");
-            Printer.Beep(3000, 1000, 3);
+            // Printer.Beep(3000, 1000, 3);
+            Printer.Beep(1000, 200, 1);
+            Printer.Beep(3400, 150, 2);
+
+            Printer.Beep(1000, 200, 1);
+            Printer.Beep(3400, 150, 2);
+
+            Printer.Beep(2000, 120, 1);
+            Printer.Beep(3100, 150, 2);
             Printer.WriteTitle("Exit");
         }
 

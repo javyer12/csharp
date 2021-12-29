@@ -21,7 +21,7 @@ namespace CoreSchool.Util
                   DrawLine(leng);
             }
 
-            public static void Beep(int hz = 2000, int time = 500, int count = 1)
+            public static void Beep(int hz, int time, int count)
             {
                   while ( count-- > 0 )
                   {
