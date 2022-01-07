@@ -68,66 +68,115 @@ namespace CoreSchool
             var listEvaXSub = reporter.GetDicEvaXsub();
             var listAveXSub = reporter.GetAverage();
 
+            // Printer.WriteTitle("Usando While");
+            // WriteLine("Ingrese 4 digitos: ");
+            // var numer = new List<int>();
+            // var view = Console.ReadLine();
+            // while (view.Length < 4)
+            // {
+            //     WriteLine("finish");
+            //     numer.Add(view);
+            // }
+            // WriteLine("insert a digit: ");
 
-            Printer.WriteTitle("Evaluations by Console");
-            var newEval = new Evaluation();
-            string name, stringnote;
+            // static bool EsPar(int numer)
+            // {   
 
-            //NAME
-            WriteLine("Enter the name of the Evaluation: ");
-            Printer.PressEnter();
-            name = Console.ReadLine();
+            //     while (numer % 2 == 0)
+            //     {
+            //         return true;
+            //     }
 
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                Printer.WriteTitle("The name can not be empty");
-                WriteLine("Closing App");
-            }
-            else
-            {
-                newEval.Name = name.ToLower();
-                WriteLine("Name was set successessfully");
-            }
-            //NOTE
-            WriteLine("Enter the note of the Evaluation: ");
-            Printer.PressEnter();
-            stringnote = Console.ReadLine();
+            //     return false;
+            // }
+            // string view = Console.ReadLine();
+            // int four = int.Parse(view);
+            // WriteLine(EsPar(four));
+            // Printer.WriteTitle("True = user par, False = user  impar");
 
-            if (string.IsNullOrWhiteSpace(stringnote))
+
+            void Ask()
             {
-                Printer.WriteTitle("Note can not be empty");
-                WriteLine("Closing App");
-            }
-            else
-            {
-                try
+                int tries = 0;
+                while (tries < 4)
                 {
-                    newEval.Note = float.Parse(stringnote);
-                    if (newEval.Note < 0 || newEval.Note > 5)
+                    WriteLine("insert a digit: ");
+                    string view = Console.ReadLine();
+                    int four = int.Parse(view);
+
+                    while (  four % 2 == 0)
                     {
-                        throw new ArgumentOutOfRangeException("The Note must be a number between 0 and 5");
+                        WriteLine("par");
+                        break;
                     }
-                    WriteLine("Note was set successessfully");
-                }
-                catch (ArgumentOutOfRangeException arge)
-                {
-                    Printer.WriteTitle(arge.Message);
-                    WriteLine("Closing App");
-                }
-
-                catch (Exception)
-                {
-                    Printer.WriteTitle("The note must be a number");
-                    WriteLine("Closing App");
-                }
-                finally
-                {
-                    Printer.WriteTitle("Finally");
-                    Printer.Beep(1000, 200, 1);
-
-
+                    while ( four % 2 != 0)
+                    {
+                        WriteLine("impar");
+                        break;
+                    }
+                    tries++;
                 }
             }
+            Ask();
+
+            // Printer.WriteTitle("Evaluations by Console");
+            // var newEval = new Evaluation();
+            // string name, stringnote;
+
+            // //NAME
+            // WriteLine("Enter the name of the Evaluation: ");
+            // Printer.PressEnter();
+            // name = Console.ReadLine();
+            // if (string.IsNullOrWhiteSpace(name))
+            // {
+            //     Printer.WriteTitle("The name can not be empty");
+            //     WriteLine("Closing App");
+            // }
+            // else
+            // {
+            //     newEval.Name = name.ToLower();
+            //     WriteLine("Name was set successessfully");
+            // }
+            //NOTE
+            // WriteLine("Enter the note of the Evaluation: ");
+            // Printer.PressEnter();
+            // stringnote = Console.ReadLine();
+
+            // if (string.IsNullOrWhiteSpace(stringnote))
+            // {
+            //     Printer.WriteTitle("Note can not be empty");
+            //     WriteLine("Closing App");
+            // }
+            // else
+            // {
+            //     try
+            //     {
+            //         newEval.Note = float.Parse(stringnote);
+            //         if (newEval.Note < 0 || newEval.Note > 5)
+            //         {
+            //             throw new ArgumentOutOfRangeException("The Note must be a number between 0 and 5");
+            //         }
+            //         WriteLine("Note was set successessfully");
+            //     }
+            //     catch (ArgumentOutOfRangeException arge)
+            //     {
+            //         Printer.WriteTitle(arge.Message);
+            //         WriteLine("Closing App");
+            //     }
+
+            //     catch (Exception)
+            //     {
+            //         Printer.WriteTitle("The note must be a number");
+            //         WriteLine("Closing App");
+            //     }
+            //     finally
+            //     {
+            //         Printer.WriteTitle("Finally");
+            //         Printer.Beep(1000, 200, 1);
+
+
+            //     }
+            // }
 
 
 
